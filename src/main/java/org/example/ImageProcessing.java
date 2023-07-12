@@ -186,6 +186,18 @@ public class ImageProcessing {
         }
     }
 
+    public void oldStyle() {
+        tImage = new int[height][width][3];
+        for (int i = 10; i < height - 10; i++) {
+            for (int j = 10; j < width - 10; j++) {
+                for (int k = 0; k < 3; k++) {
+                    if (i%4 == 1 || j%2 == 4) tImage[i][j][k] = 0;
+                    else tImage[i][j][k] = Math.max(image[i][j][k] - 50, 0);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         ImageProcessing processing = new ImageProcessing();
         // processing.flipVertically();
@@ -194,9 +206,10 @@ public class ImageProcessing {
         // processing.grayScale();
         // processing.sepia();
         // processing.invert();
-        processing.swap(2);
+        // processing.swap(2);
         // processing.adjustBrightness(30);
-        // processing.adjustContrast(2);
+        processing.adjustContrast(2);
+        // processing.oldStyle();
         processing.saveImage("lenna");
     }
 
