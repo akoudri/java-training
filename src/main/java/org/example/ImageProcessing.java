@@ -198,6 +198,28 @@ public class ImageProcessing {
         }
     }
 
+    public void leftRotate() {
+        tImage = new int[width][height][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                for (int k = 0; k < 3; k++) {
+                    tImage[j][height - i - 1][k] = image[i][j][k];
+                }
+            }
+        }
+    }
+
+    public void rightRotate() {
+        tImage = new int[width][height][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                for (int k = 0; k < 3; k++) {
+                    tImage[width - j - 1][i][k] = image[i][j][k];
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         ImageProcessing processing = new ImageProcessing();
         // processing.flipVertically();
@@ -208,8 +230,10 @@ public class ImageProcessing {
         // processing.invert();
         // processing.swap(2);
         // processing.adjustBrightness(30);
-        processing.adjustContrast(2);
+        // processing.adjustContrast(2);
         // processing.oldStyle();
+        // processing.rightRotate();
+        processing.leftRotate();
         processing.saveImage("lenna");
     }
 
