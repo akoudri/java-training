@@ -120,12 +120,9 @@ public class ImageProcessing {
         int red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++){
-                red = (int) (0.393 * image[i][j][0] + 0.769 * image[i][j][1] + 0.189 * image[i][j][2]);
-                green = (int) (0.349 * image[i][j][0] + 0.686 * image[i][j][1] + 0.168 * image[i][j][2]);
-                blue = (int) (0.272 * image[i][j][0] + 0.534 * image[i][j][1] + 0.131 * image[i][j][2]);
-                tImage[i][j][0] = Math.min(255, red);
-                tImage[i][j][1] = Math.min(255, green);
-                tImage[i][j][2] = Math.min(255, blue);
+                tImage[i][j][0] = Math.min(255, (int) (0.393 * image[i][j][0] + 0.769 * image[i][j][1] + 0.189 * image[i][j][2]));
+                tImage[i][j][1] = Math.min(255, (int) (0.349 * image[i][j][0] + 0.686 * image[i][j][1] + 0.168 * image[i][j][2]));
+                tImage[i][j][2] = Math.min(255, (int) (0.272 * image[i][j][0] + 0.534 * image[i][j][1] + 0.131 * image[i][j][2]));
             }
         }
     }
@@ -135,12 +132,9 @@ public class ImageProcessing {
         int red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++){
-                red = 255 - image[i][j][0];
-                green = 255 - image[i][j][1];
-                blue = 255 - image[i][j][2];
-                tImage[i][j][0] = red;
-                tImage[i][j][1] = green;
-                tImage[i][j][2] = blue;
+                tImage[i][j][0] = 255 - image[i][j][0];
+                tImage[i][j][1] = 255 - image[i][j][1];
+                tImage[i][j][2] = 255 - image[i][j][2];
             }
         }
     }
@@ -161,12 +155,9 @@ public class ImageProcessing {
         int red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                red = Math.min(255, image[i][j][0] + val);
-                green = Math.min(255, image[i][j][1] + val);
-                blue = Math.min(255, image[i][j][2] + val);
-                tImage[i][j][0] = red;
-                tImage[i][j][1] = green;
-                tImage[i][j][2] = blue;
+                tImage[i][j][0] = Math.min(255, image[i][j][0] + val);
+                tImage[i][j][1] = Math.min(255, image[i][j][1] + val);
+                tImage[i][j][2] = Math.min(255, image[i][j][2] + val);
             }
         }
     }
@@ -176,12 +167,9 @@ public class ImageProcessing {
         int red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                red = Math.min(255, Math.max(0, (image[i][j][0] - 128) * factor + 128));
-                green = Math.min(255, Math.max(0, (image[i][j][1] - 128) * factor + 128));
-                blue = Math.min(255, Math.max(0, (image[i][j][2] - 128) * factor + 128));
-                tImage[i][j][0] = red;
-                tImage[i][j][1] = green;
-                tImage[i][j][2] = blue;
+                tImage[i][j][0] = Math.min(255, Math.max(0, (image[i][j][0] - 128) * factor + 128));
+                tImage[i][j][1] = Math.min(255, Math.max(0, (image[i][j][1] - 128) * factor + 128));
+                tImage[i][j][2] = Math.min(255, Math.max(0, (image[i][j][2] - 128) * factor + 128));
             }
         }
     }
