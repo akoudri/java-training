@@ -210,6 +210,26 @@ public class ImageProcessing {
         }
     }
 
+    public void rotate(int angle) {
+        tImage = new int[width][height][3];
+        double radians = Math.toRadians(angle);
+        double cos = Math.cos(radians);
+        double sin = Math.sin(radians);
+        int centerX = width / 2;
+        int centerY = height / 2;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                int x = (int) (cos * (j - centerX) + sin * (i - centerY) + centerX);
+                int y = (int) (cos * (i - centerY) - sin * (j - centerX) + centerY);
+                if (x >= 0 && x < width && y >= 0 && y < height) {
+                    for (int k = 0; k < 3; k++) {
+                        tImage[y][x][k] = image[i][j][k];
+                    }
+                }
+            }
+        }
+    }
+
     //Simple scale - more complex are required to avoid pixelation
     //like bilinear or bicubic interpolation
     public void scale(double factor) {
@@ -239,7 +259,8 @@ public class ImageProcessing {
         // processing.oldStyle(20, 4, -20);
         // processing.rightRotate();
         // processing.leftRotate();
-        processing.scale(2.0);
+        // processing.scale(2.0);
+        processing.rotate(45);
         processing.saveImage("lenna");
     }
 
