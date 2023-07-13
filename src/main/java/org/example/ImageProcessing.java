@@ -31,9 +31,9 @@ public class ImageProcessing {
                     red = (px >> 16) & 0xFF;
                     green = (px >> 8) & 0xFF;
                     blue = px & 0xFF;
-                    image[j][i][0] = red;
-                    image[j][i][1] = green;
-                    image[j][i][2] = blue;
+                    image[i][j][0] = red;
+                    image[i][j][1] = green;
+                    image[i][j][2] = blue;
                 }
             }
             tImage = image.clone();
@@ -48,9 +48,9 @@ public class ImageProcessing {
         int px, red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                red = tImage[j][i][0];
-                green = tImage[j][i][1];
-                blue = tImage[j][i][2];
+                red = tImage[i][j][0];
+                green = tImage[i][j][1];
+                blue = tImage[i][j][2];
                 px = (red << 16) | (green << 8) | blue;
                 buff.setRGB(j, i, px);
             }
@@ -188,7 +188,7 @@ public class ImageProcessing {
         }
     }
 
-    public void leftRotate() {
+    public void rightRotate() {
         tImage = new int[width][height][3];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++){
@@ -199,7 +199,7 @@ public class ImageProcessing {
         }
     }
 
-    public void rightRotate() {
+    public void leftRotate() {
         tImage = new int[width][height][3];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++){
@@ -245,6 +245,37 @@ public class ImageProcessing {
         }
     }
 
+    public void stretchVertically(double factor) {
+        int originalHeight = height;
+        height = (int) (height * factor);
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            int y = (int) (i / factor);
+            y = Math.min(y, originalHeight - 1); // Ensure we don't exceed original height
+            for (int j = 0; j < width; j++) {
+                for (int k = 0; k < 3; k++) {
+                    tImage[i][j][k] = image[y][j][k];
+                }
+            }
+        }
+    }
+
+    public void stretchHorizontally(double factor) {
+        int originalWidth = width;
+        width = (int) (width * factor);
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = (int) (j / factor);
+                x = Math.min(x, originalWidth - 1); // Ensure we don't exceed original width
+                for (int k = 0; k < 3; k++) {
+                    tImage[i][j][k] = image[i][x][k];
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         ImageProcessing processing = new ImageProcessing();
         // processing.flipVertically();
@@ -261,6 +292,8 @@ public class ImageProcessing {
         // processing.leftRotate();
         // processing.scale(2.0);
         processing.rotate(45);
+        // processing.stretchVertically(2.0);
+        // processing.stretchHorizontally(2.0);
         processing.saveImage("lenna");
     }
 
