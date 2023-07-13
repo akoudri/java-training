@@ -11,6 +11,7 @@ public class ImageProcessing {
 
     private int[][][] image, tImage;
     private int width, height;
+    private int originalWidth, originalHeight;
 
     public ImageProcessing() {
         loadImageFromUrl("https://bellard.org/bpg/lena30.jpg");
@@ -23,6 +24,8 @@ public class ImageProcessing {
             BufferedImage buff = ImageIO.read(in);
             width = buff.getWidth();
             height = buff.getHeight();
+            originalWidth = width;
+            originalHeight = height;
             image = new int[height][width][3];
             int px, red, green, blue;
             for (int i = 0; i < height; i++) {
@@ -55,6 +58,8 @@ public class ImageProcessing {
                 buff.setRGB(j, i, px);
             }
         }
+        width = originalWidth;
+        height = originalHeight;
         try {
             ImageIO.write(buff, "jpg", f);
         } catch (IOException ex) {
@@ -178,12 +183,16 @@ public class ImageProcessing {
         tImage = new int[height][width][3];
         for (int i = borderWidth; i < height - borderWidth; i += offset) {
             for (int j = borderWidth; j < width - borderWidth; j += offset) {
-                for (int k = 0; k < 3; k++) {
-                    if (brightness > 0)
+                if (brightness > 0) {
+                    for (int k = 0; k < 3; k++) {
                         tImage[i][j][k] = Math.min(image[i][j][k] + brightness, 255);
-                    else
+                    }
+                } else {
+                    for (int k = 0; k < 3; k++) {
                         tImage[i][j][k] = Math.max(image[i][j][k] + brightness, 0);
+                    }
                 }
+
             }
         }
     }
@@ -246,7 +255,6 @@ public class ImageProcessing {
     }
 
     public void stretchVertically(double factor) {
-        int originalHeight = height;
         height = (int) (height * factor);
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
@@ -261,7 +269,6 @@ public class ImageProcessing {
     }
 
     public void stretchHorizontally(double factor) {
-        int originalWidth = width;
         width = (int) (width * factor);
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
@@ -278,23 +285,40 @@ public class ImageProcessing {
 
     public static void main(String[] args) {
         ImageProcessing processing = new ImageProcessing();
-        // processing.flipVertically();
-        // processing.flipHorizontally();
-        // processing.zoomCenter();
-        // processing.grayScale();
-        // processing.sepia();
-        // processing.invert();
-        // processing.swap(2);
-        // processing.adjustBrightness(30);
-        // processing.adjustContrast(2);
-        // processing.oldStyle(20, 4, -20);
-        // processing.rightRotate();
-        // processing.leftRotate();
-        // processing.scale(2.0);
-        processing.rotate(45);
-        // processing.stretchVertically(2.0);
-        // processing.stretchHorizontally(2.0);
-        processing.saveImage("lenna");
+//        processing.flipVertically();
+//        processing.saveImage("lenna_verticalflip");
+//        processing.flipHorizontally();
+//        processing.saveImage("lenna_horizontalflip");
+//        processing.zoomCenter();
+//        processing.saveImage("lenna_zoomcenter");
+//        processing.grayScale();
+//        processing.saveImage("lenna_grayscale");
+//        processing.sepia();
+//        processing.saveImage("lenna_sepia");
+//        processing.invert();
+//        processing.saveImage("lenna_negative");
+//        processing.swap(1);
+//        processing.saveImage("lenna_swap1");
+//        processing.swap(2);
+//        processing.saveImage("lenna_swap2");
+//        processing.adjustBrightness(30);
+//        processing.saveImage("lenna_brightness");
+//        processing.adjustContrast(2);
+//        processing.saveImage("lenna_contrast");
+        processing.oldStyle(20, 2, 0);
+        processing.saveImage("lenna_oldstyle");
+//        processing.rightRotate();
+//        processing.saveImage("lenna_rightrotate");
+//        processing.leftRotate();
+//        processing.saveImage("lenna_leftrotate");
+//        processing.scale(2.0);
+//        processing.saveImage("lenna_scale");
+//        processing.rotate(45);
+//        processing.saveImage("lenna_rotateangle");
+//        processing.stretchVertically(2.0);
+//        processing.saveImage("lenna_verticalstretch");
+//        processing.stretchHorizontally(2.0);
+//        processing.saveImage("lenna_horizontalstretch");
     }
 
 }
