@@ -1,8 +1,5 @@
 package org.example;
 
-import org.example.Roue;
-import org.example.Voiture;
-
 import java.util.Random;
 
 public class App
@@ -88,84 +85,25 @@ public class App
         return res;
     }
 
-    public static void triBulles(int[] tab) {
-        boolean sorted = false;
-        while (sorted == false)
-        {
-            sorted = true;
-            for (int i = 0; i < tab.length - 1; i++) {
-                if (tab[i] > tab[i + 1]) {
-                    int tmp = tab[i + 1];
-                    tab[i + 1] = tab[i];
-                    tab[i] = tmp;
-                    sorted = false;
-                }
-            }
-        }
-    }
-
-    public static void insertionSort(int[] tab) {
-        for (int i = 1; i < tab.length; i++) {
-            int j = i;
-            while (j > 0 && tab[j - 1] > tab[j]) {
-                int tmp = tab[j - 1];
-                tab[j - 1] = tab[j];
-                tab[j] = tmp;
-                j--;
-            }
-        }
-    }
-
-    public static void quickSort(int[] tab) {
-        quickSort(tab, 0, tab.length - 1);
-    }
-
-    public static void quickSort(int[] tab, int min, int max) {
-        if (min < max) {
-            int pivot = partition(tab, min, max);
-            quickSort(tab, min, pivot - 1);
-            quickSort(tab, pivot + 1, max);
-        }
-    }
-
-    public static int partition(int[] tab, int min, int max) {
-        int pivot = tab[max];
-        int i = min - 1;
-        for (int j = min; j < max; j++) {
-            if (tab[j] < pivot) {
-                i++;
-                int tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
-        }
-        int tmp = tab[i + 1];
-        tab[i + 1] = tab[max];
-        tab[max] = tmp;
-        return i + 1;
-    }
-
-    public static void display(int[] tab) {
-        for (int i = 0; i < tab.length; i++)
-            System.out.print(tab[i] + " ");
-        System.out.println();
-    }
-
     public static void main( String[] args )
     {
         Random rand = new Random();
         int[] x = new int[100_000];
         for (int i = 0; i < x.length; i++) {
-            x[i] = rand.nextInt(100);
+            x[i] = rand.nextInt(10000);
         }
         int[] y = x.clone();
+        Tableau tx = new Tableau(x);
+        Tableau ty = new Tableau(y);
         long start = System.currentTimeMillis();
-        insertionSort(x);
+        tx.insertionSort();
         long duration = System.currentTimeMillis() - start;
+        tx.display();
         System.out.println(duration);
         start = System.currentTimeMillis();
-        quickSort(y);
+        ty.quickSort();
         duration = System.currentTimeMillis() - start;
+        ty.display();
         System.out.println(duration);
     }
 }
