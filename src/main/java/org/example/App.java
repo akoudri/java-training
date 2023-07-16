@@ -154,12 +154,18 @@ public class App
     public static void main( String[] args )
     {
         Random rand = new Random();
-        int[] x = new int[30];
+        int[] x = new int[100_000];
         for (int i = 0; i < x.length; i++) {
             x[i] = rand.nextInt(100);
         }
-        display(x);
-        quickSort(x);
-        display(x);
+        int[] y = x.clone();
+        long start = System.currentTimeMillis();
+        insertionSort(x);
+        long duration = System.currentTimeMillis() - start;
+        System.out.println(duration);
+        start = System.currentTimeMillis();
+        quickSort(y);
+        duration = System.currentTimeMillis() - start;
+        System.out.println(duration);
     }
 }
