@@ -305,8 +305,8 @@ public class ImageProcessing {
 //        processing.saveImage("lenna_brightness");
 //        processing.adjustContrast(2);
 //        processing.saveImage("lenna_contrast");
-        processing.oldStyle(20, 2, 0);
-        processing.saveImage("lenna_oldstyle");
+//        processing.oldStyle(20, 2, 0);
+//        processing.saveImage("lenna_oldstyle");
 //        processing.rightRotate();
 //        processing.saveImage("lenna_rightrotate");
 //        processing.leftRotate();
@@ -317,8 +317,8 @@ public class ImageProcessing {
 //        processing.saveImage("lenna_rotateangle");
 //        processing.stretchVertically(2.0);
 //        processing.saveImage("lenna_verticalstretch");
-//        processing.stretchHorizontally(2.0);
-//        processing.saveImage("lenna_horizontalstretch");
+        processing.stretchHorizontally(3.0);
+        processing.saveImage("lenna_horizontalstretch");
     }
 
 }
