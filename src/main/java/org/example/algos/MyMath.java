@@ -1,23 +1,6 @@
-package org.example;
+package org.example.algos;
 
-import java.util.Random;
-
-public class App
-{
-    public static void losange(int base, int spaces)
-    {
-        int mid = base / 2 + 1;
-        for (int i = 1; i <= base; i++)
-        {
-            int nbSpaces = mid - i;
-            if (nbSpaces < 0) nbSpaces *= -1;
-            int nbChars = base - 2 * nbSpaces;
-            for (int j = 0; j < spaces; j++) System.out.print(" ");
-            for (int j = 0; j < nbSpaces; j++) System.out.print(" ");
-            for (int j = 0; j < nbChars; j++) System.out.print("*");
-            System.out.println();
-        }
-    }
+public class MyMath {
 
     public static int carre(int x) {
         return x * x;
@@ -85,25 +68,4 @@ public class App
         return res;
     }
 
-    public static void main( String[] args )
-    {
-        Random rand = new Random();
-        int[] x = new int[100_000];
-        for (int i = 0; i < x.length; i++) {
-            x[i] = rand.nextInt(10000);
-        }
-        int[] y = x.clone();
-        Tableau tx = new Tableau(x);
-        Tableau ty = new Tableau(y);
-        long start = System.currentTimeMillis();
-        tx.insertionSort();
-        long duration = System.currentTimeMillis() - start;
-        tx.display();
-        System.out.println(duration);
-        start = System.currentTimeMillis();
-        ty.quickSort();
-        duration = System.currentTimeMillis() - start;
-        ty.display();
-        System.out.println(duration);
-    }
 }
