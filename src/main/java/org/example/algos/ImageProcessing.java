@@ -17,9 +17,41 @@ public class ImageProcessing {
         loadImageFromUrl("https://bellard.org/bpg/lena30.jpg");
     }
 
-    public ImageProcessing(String url) {
-        loadImageFromUrl(url);
+    public ImageProcessing(String file, boolean local) {
+        if (local)
+            loadImageFromFile(file);
+        else
+            loadImageFromUrl(file);
     }
+
+    private void loadImageFromFile(String fileName) {
+        try {
+            // Adjust this if your resources folder is located differently
+            File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+            BufferedImage buff = ImageIO.read(file);
+            width = buff.getWidth();
+            height = buff.getHeight();
+            originalWidth = width;
+            originalHeight = height;
+            image = new int[height][width][3];
+            int px, red, green, blue;
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    px = buff.getRGB(j, i);
+                    red = (px >> 16) & 0xFF;
+                    green = (px >> 8) & 0xFF;
+                    blue = px & 0xFF;
+                    image[i][j][0] = red;
+                    image[i][j][1] = green;
+                    image[i][j][2] = blue;
+                }
+            }
+            tImage = image.clone();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     private void loadImageFromUrl(String url) {
         try {
@@ -430,16 +462,18 @@ public class ImageProcessing {
     }
 
     public static void main(String[] args) {
-        //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg");
-        ImageProcessing processing = new ImageProcessing();
+        //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
+        ImageProcessing processing = new ImageProcessing("lenna_invert.jpg", true);
+        processing.sharpen();
+        processing.saveImage("lenna_sharpen");
 //        processing.flipVertically();
 //        processing.saveImage("cat_verticalflip");
 //        processing.keepLayer(1);
 //        processing.saveImage("cat_green");
 //        processing.horizontalShift(0.5);
 //        processing.saveImage("lenna_shift");
-        processing.sharpen();
-        processing.saveImage("lenna_sharpen");
+//        processing.sharpen();
+//        processing.saveImage("lenna_sharpen");
 //        processing.flipHorizontally();
 //        processing.saveImage("lenna_horizontalflip");
 //        processing.zoomCenter();
