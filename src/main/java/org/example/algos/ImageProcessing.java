@@ -184,6 +184,14 @@ public class ImageProcessing {
             }
         }
     }
+
+    public void horizontalShift(double value) {
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            tImage[i] = image[(i + (int)(height * value)) % height];
+        }
+    }
+
     public void zoomCenter() {
         tImage = new int[height][width][3];
         int ti = 0, tj = 0;
@@ -366,17 +374,72 @@ public class ImageProcessing {
         }
     }
 
+    private int compute(int i, int j, int k, int[][] kernel, double factor) {
+        int left, right, top, bottom;
+        top = (i == 0)? height - 1:i - 1;
+        bottom = (i == height - 1)? 0:i + 1;
+        left = (j == 0)? width - 1:j - 1;
+        right = (j == width - 1)? 0:j + 1;
+        int result = (int) ((kernel[1][1] * image[i][j][k] +
+                kernel[1][0] * image[i][left][k] +
+                kernel[0][0] * image[top][left][k] +
+                kernel[0][1] * image[top][j][k] +
+                kernel[0][2] * image[top][right][k] +
+                kernel[1][2] * image[i][right][k] +
+                kernel[2][2] * image[bottom][right][k] +
+                kernel[2][1] * image[bottom][j][k] +
+                kernel[2][0] * image[bottom][left][k]) * factor);
+        return Math.max(0, Math.min(result, 255));
+    }
+
+    private void convolution(int[][] kernel, double factor) {
+        //We assume that kernel is 3x3 matrix
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                for (int k = 0; k < 3; k++) {
+                    tImage[i][j][k] = compute(i, j, k, kernel, factor);
+                }
+            }
+        }
+    }
+
+    public void blur() {
+        int[][] kernel = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+        convolution(kernel, 1.0 / 9);
+    }
+
+    public void sharpen() {
+        int[][] kernel = {{0, -1, 0}, {-1, 5, -1}, {0, -1, 0}};
+        convolution(kernel, 1.0);
+    }
+
+    public void boxBlur() {
+        int[][] kernel = {{1, 1, 1}, {1, 2, 1}, {1, 1, 1}};
+        convolution(kernel, 1.0 / 10);
+    }
+
+    public void gaussianBlur() {
+        int[][] kernel = {{1, 2, 1}, {2, 4, 2}, {1, 2, 1}};
+        convolution(kernel, 1.0 / 16);
+    }
+
+    public void edgeDetection() {
+        int[][] kernel = {{0, 1, 0}, {1, -4, 1}, {0, 1, 0}};
+        convolution(kernel, 1.0);
+    }
 
     public static void main(String[] args) {
+        //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg");
         ImageProcessing processing = new ImageProcessing();
 //        processing.flipVertically();
 //        processing.saveImage("cat_verticalflip");
 //        processing.keepLayer(1);
 //        processing.saveImage("cat_green");
-        processing.verticalShift(0.5);
-        processing.saveImage("lenna_shift");
-        processing.cropCircle();
-        processing.saveImage("lenna_cropcircle");
+//        processing.horizontalShift(0.5);
+//        processing.saveImage("lenna_shift");
+        processing.sharpen();
+        processing.saveImage("lenna_sharpen");
 //        processing.flipHorizontally();
 //        processing.saveImage("lenna_horizontalflip");
 //        processing.zoomCenter();
