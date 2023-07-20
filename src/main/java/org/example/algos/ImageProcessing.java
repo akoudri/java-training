@@ -139,6 +139,24 @@ public class ImageProcessing {
         }
     }
 
+    public int[] averageColor() {
+        int[] avg = new int[3];
+        int red = 0, green = 0, blue = 0;
+        int count = 0;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width;j++){
+                red += image[i][j][0];
+                green += image[i][j][1];
+                blue += image[i][j][2];
+                count++;
+            }
+        }
+        avg[0] = red / count;
+        avg[1] = green / count;
+        avg[2] = blue / count;
+        return avg;
+    }
+
     public void cropCircle() {
         tImage = new int[height][width][3];
         int centerX = width / 2;
@@ -152,7 +170,7 @@ public class ImageProcessing {
                 if (x * x + y * y < radius * radius) {
                     tImage[i][j] = image[i][j];
                 } else {
-                    tImage[i][j] = new int[]{255, 255, 255};
+                    tImage[i][j] = averageColor();
                 }
             }
         }
