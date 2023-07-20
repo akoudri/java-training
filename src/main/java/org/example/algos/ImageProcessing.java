@@ -17,6 +17,10 @@ public class ImageProcessing {
         loadImageFromUrl("https://bellard.org/bpg/lena30.jpg");
     }
 
+    public ImageProcessing(String url) {
+        loadImageFromUrl(url);
+    }
+
     private void loadImageFromUrl(String url) {
         try {
             URL photoUrl = new URL(url);
@@ -67,6 +71,41 @@ public class ImageProcessing {
         }
     }
 
+    public Dimension getDimension() {
+        return new Dimension(width, height);
+    }
+
+    public void keepLayer(int layer) {
+        tImage = new int[height][width][3];
+        int i = 0, j = 0, k = 0;
+        while (i < height)
+        {
+            while (j < width) {
+                while (k < 3) {
+                    if (k == layer) tImage[i][j][k] = image[i][j][k];
+                    else tImage[i][j][k] = 0;
+                    k++;
+                }
+                k = 0;
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+    }
+
+    public void dropLayer(int layer) {
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                for (int k = 0; k < 3; k++) {
+                    if (k != layer) tImage[i][j][k] = image[i][j][k];
+                    else tImage[i][j][k] = 0;
+                }
+            }
+        }
+    }
+
     public void flipVertically() {
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
@@ -100,6 +139,33 @@ public class ImageProcessing {
         }
     }
 
+    public void cropCircle() {
+        tImage = new int[height][width][3];
+        int centerX = width / 2;
+        int centerY = height / 2;
+        int radius = Math.min(centerX, centerY);
+        int x, y;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                x = j - centerX;
+                y = i - centerY;
+                if (x * x + y * y < radius * radius) {
+                    tImage[i][j] = image[i][j];
+                } else {
+                    tImage[i][j] = new int[]{255, 255, 255};
+                }
+            }
+        }
+    }
+
+    public void verticalShift(double value) {
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                tImage[i][j] = image[i][(j + (int)(width * value)) % width];
+            }
+        }
+    }
     public void zoomCenter() {
         tImage = new int[height][width][3];
         int ti = 0, tj = 0;
@@ -285,40 +351,48 @@ public class ImageProcessing {
 
     public static void main(String[] args) {
         ImageProcessing processing = new ImageProcessing();
-        processing.flipVertically();
-        processing.saveImage("lenna_verticalflip");
-        processing.flipHorizontally();
-        processing.saveImage("lenna_horizontalflip");
-        processing.zoomCenter();
-        processing.saveImage("lenna_zoomcenter");
-        processing.grayScale();
-        processing.saveImage("lenna_grayscale");
-        processing.sepia();
-        processing.saveImage("lenna_sepia");
-        processing.invert();
-        processing.saveImage("lenna_negative");
-        processing.swap(1);
-        processing.saveImage("lenna_swap1");
-        processing.swap(2);
-        processing.saveImage("lenna_swap2");
-        processing.adjustBrightness(30);
-        processing.saveImage("lenna_brightness");
-        processing.adjustContrast(2);
-        processing.saveImage("lenna_contrast");
-        processing.oldStyle(20, 2, 0);
-        processing.saveImage("lenna_oldstyle");
-        processing.rightRotate();
-        processing.saveImage("lenna_rightrotate");
-        processing.leftRotate();
-        processing.saveImage("lenna_leftrotate");
-        processing.scale(2.0);
-        processing.saveImage("lenna_scale");
-        processing.rotate(45);
-        processing.saveImage("lenna_rotateangle");
-        processing.stretchVertically(2.0);
-        processing.saveImage("lenna_verticalstretch");
-        processing.stretchHorizontally(3.0);
-        processing.saveImage("lenna_horizontalstretch");
+//        processing.flipVertically();
+//        processing.saveImage("cat_verticalflip");
+//        processing.keepLayer(1);
+//        processing.saveImage("cat_green");
+        processing.verticalShift(0.5);
+        processing.saveImage("lenna_shift");
+        processing.cropCircle();
+        processing.saveImage("lenna_cropcircle");
+//        processing.flipHorizontally();
+//        processing.saveImage("lenna_horizontalflip");
+//        processing.zoomCenter();
+//        processing.saveImage("lenna_zoomcenter");
+//        processing.grayScale();
+//        processing.saveImage("cat_grayscale");
+//        processing.dropLayer(1);
+//        processing.saveImage("cat_green");
+//        processing.sepia();
+//        processing.saveImage("lenna_sepia");
+//        processing.invert();
+//        processing.saveImage("lenna_negative");
+//        processing.swap(1);
+//        processing.saveImage("lenna_swap1");
+//        processing.swap(2);
+//        processing.saveImage("lenna_swap2");
+//        processing.adjustBrightness(30);
+//        processing.saveImage("lenna_brightness");
+//        processing.adjustContrast(2);
+//        processing.saveImage("lenna_contrast");
+//        processing.oldStyle(20, 2, 0);
+//        processing.saveImage("lenna_oldstyle");
+//        processing.rightRotate();
+//        processing.saveImage("lenna_rightrotate");
+//        processing.leftRotate();
+//        processing.saveImage("lenna_leftrotate");
+//        processing.scale(2.0);
+//        processing.saveImage("lenna_scale");
+//        processing.rotate(45);
+//        processing.saveImage("lenna_rotateangle");
+//        processing.stretchVertically(2.0);
+//        processing.saveImage("lenna_verticalstretch");
+//        processing.stretchHorizontally(3.0);
+//        processing.saveImage("cat");
     }
 
 }
