@@ -67,7 +67,7 @@ public class ImageProcessing {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     px = buff.getRGB(j, i);
-                    red = (px >> 16) & 0xFF;
+                    red = (px >> 16);
                     green = (px >> 8) & 0xFF;
                     blue = px & 0xFF;
                     image[i][j][0] = red;
@@ -142,9 +142,7 @@ public class ImageProcessing {
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                for (int k = 0; k < 3; k++) {
-                    tImage[height - i - 1][j][k] = image[i][j][k];
-                }
+                tImage[i][width - j - 1] = image[i][j];
             }
         }
     }
@@ -153,7 +151,7 @@ public class ImageProcessing {
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++){
-                tImage[i][j] = image[i][width - j - 1];
+                tImage[height - i - 1][j] = image[i][j];
             }
         }
     }
@@ -167,6 +165,19 @@ public class ImageProcessing {
                 tImage[i][j][0] = gray;
                 tImage[i][j][1] = gray;
                 tImage[i][j][2] = gray;
+            }
+        }
+    }
+
+    public void cross(int[] color) {
+        //TODO: à compléter pour l'autre diagonale
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++){
+                if (i == j) {
+                    tImage[i][j] = color;
+                } else {
+                    tImage[i][j] = image[i][j];
+                }
             }
         }
     }
@@ -463,9 +474,11 @@ public class ImageProcessing {
 
     public static void main(String[] args) {
         //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
-        ImageProcessing processing = new ImageProcessing("lenna_invert.jpg", true);
-        processing.sharpen();
-        processing.saveImage("lenna_sharpen");
+        ImageProcessing processing = new ImageProcessing();
+        processing.cross(new int[]{255, 255, 0});
+        processing.saveImage("lenna_redcross");
+//        processing.sharpen();
+//        processing.saveImage("lenna_sharpen");
 //        processing.flipVertically();
 //        processing.saveImage("cat_verticalflip");
 //        processing.keepLayer(1);
