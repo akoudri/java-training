@@ -169,19 +169,6 @@ public class ImageProcessing {
         }
     }
 
-    public void cross(int[] color) {
-        //TODO: à compléter pour l'autre diagonale
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++){
-                if (i == j) {
-                    tImage[i][j] = color;
-                } else {
-                    tImage[i][j] = image[i][j];
-                }
-            }
-        }
-    }
-
     public int[] averageColor() {
         int[] avg = new int[3];
         int red = 0, green = 0, blue = 0;
@@ -472,11 +459,41 @@ public class ImageProcessing {
         convolution(kernel, 1.0);
     }
 
+    public void gbEffect(int lineWidth) {
+        int border = (int) (lineWidth / 3.0);
+        tImage = new int[height][width][3];
+        int midHeight = height / 2;
+        int midWidth = width / 2;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                for (int k = 0; k < 3; k++) {
+                    // Check if we are within the range of the diagonal lines or the plus lines
+                    if ((Math.abs(i - j) < lineWidth) || (Math.abs(i - (width - j - 1)) < lineWidth) ||
+                            (Math.abs(i - midHeight) < lineWidth) || (Math.abs(j - midWidth) < lineWidth)) {
+                        // If we are, set the pixel to red (R:255, G:0, B:0)
+                        if (k == 0) { // Red channel
+                            tImage[i][j][k] = 255;
+                        } else { // Green and blue channels
+                            tImage[i][j][k] = 50;
+                        }
+                    } else if ((Math.abs(i - j) < lineWidth + border) || (Math.abs(i - (width - j - 1)) < lineWidth + border) ||
+                            (Math.abs(i - midHeight) < lineWidth + border) || (Math.abs(j - midWidth) < lineWidth + border)) {
+                        // If we are within the border range, set the pixel to white (R:255, G:255, B:255)
+                        tImage[i][j][k] = 255;
+                    } else {
+                        if (k == 2) tImage[i][j][k] = Math.min(255, image[i][j][k] + 50);
+                        else tImage[i][j][k] = 50;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
         ImageProcessing processing = new ImageProcessing();
-        processing.cross(new int[]{255, 255, 0});
-        processing.saveImage("lenna_redcross");
+        processing.gbEffect(10);
+        processing.saveImage("lenna_england");
 //        processing.sharpen();
 //        processing.saveImage("lenna_sharpen");
 //        processing.flipVertically();
