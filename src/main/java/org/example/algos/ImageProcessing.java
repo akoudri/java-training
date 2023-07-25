@@ -279,7 +279,6 @@ public class ImageProcessing {
 
     public void adjustBrightness(int val) {
         tImage = new int[height][width][3];
-        int red, green, blue;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 tImage[i][j][0] = Math.min(255, image[i][j][0] + val);
@@ -489,11 +488,30 @@ public class ImageProcessing {
         }
     }
 
+    public void frenchEffect() {
+        tImage = new int[height][width][3];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                for (int k = 0; k < 3; k++) {
+                    if (j < width / 3) {
+                        if (k == 2) tImage[i][j][k] = image[i][j][k];
+                        else tImage[i][j][k] = 0;
+                    } else if (j >= width / 3 && j < 2 * width / 3) {
+                        tImage[i][j][k] = image[i][j][k];
+                    } else {
+                        if (k == 0) tImage[i][j][k] = image[i][j][k];
+                        else tImage[i][j][k] = 0;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
         ImageProcessing processing = new ImageProcessing();
-        processing.gbEffect(10);
-        processing.saveImage("lenna_england");
+        processing.frenchEffect();
+        processing.saveImage("lenna_french");
 //        processing.sharpen();
 //        processing.saveImage("lenna_sharpen");
 //        processing.flipVertically();
