@@ -281,9 +281,9 @@ public class ImageProcessing {
         tImage = new int[height][width][3];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                tImage[i][j][0] = Math.min(255, image[i][j][0] + val);
-                tImage[i][j][1] = Math.min(255, image[i][j][1] + val);
-                tImage[i][j][2] = Math.min(255, image[i][j][2] + val);
+                for (int k = 0; k < 3; k++) {
+                    tImage[i][j][k] = Math.max(0, Math.min(255, image[i][j][k] + val));
+                }
             }
         }
     }
@@ -497,7 +497,7 @@ public class ImageProcessing {
                         if (k == 2) tImage[i][j][k] = image[i][j][k];
                         else tImage[i][j][k] = 0;
                     } else if (j >= width / 3 && j < 2 * width / 3) {
-                        tImage[i][j][k] = image[i][j][k];
+                        tImage[i][j][k] = Math.max(0, Math.min(255, image[i][j][k] + 150));
                     } else {
                         if (k == 0) tImage[i][j][k] = image[i][j][k];
                         else tImage[i][j][k] = 0;
@@ -538,8 +538,8 @@ public class ImageProcessing {
 //        processing.saveImage("lenna_swap1");
 //        processing.swap(2);
 //        processing.saveImage("lenna_swap2");
-//        processing.adjustBrightness(30);
-//        processing.saveImage("lenna_brightness");
+        processing.adjustBrightness(100);
+        processing.saveImage("lenna_brightness");
 //        processing.adjustContrast(2);
 //        processing.saveImage("lenna_contrast");
 //        processing.oldStyle(20, 2, 0);
