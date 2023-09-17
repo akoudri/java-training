@@ -7,8 +7,7 @@ public class Figure {
         int mid = base / 2 + 1;
         for (int i = 1; i <= base; i++)
         {
-            int nbSpaces = mid - i;
-            if (nbSpaces < 0) nbSpaces *= -1;
+            int nbSpaces = Math.abs(mid - i);
             int nbChars = base - 2 * nbSpaces;
             for (int j = 0; j < spaces; j++) System.out.print(" ");
             for (int j = 0; j < nbSpaces; j++) System.out.print(" ");
@@ -41,7 +40,8 @@ public class Figure {
     }
 
     public static void main(String[] args) {
-        cross(9);
+        //cross(9);
+        losange(7, 0);
     }
 
 }
