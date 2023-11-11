@@ -1,0 +1,6 @@
+<People xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="persons.xsd">
+    <Person firstName="John" lastName="Smith" birthDate="1985-07-05" occupation="Software Engineer"/>
+    <Person firstName="Emily" lastName="Johnson" birthDate="1990-03-12" occupation="Teacher"/>
+    <Person firstName="Donna" lastName="Gonzalez" birthDate="1981-09-17" occupation="Veterinarian"/>
+</People>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Definition of the root element -->
+    <xs:element name="People">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- 'Person' can occur 0 or more times -->
+                <xs:element name="Person" type="PersonType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Definition of 'Person' type -->
+    <xs:complexType name="PersonType">
+        <xs:attribute name="firstName" type="xs:string" use="required"/>
+        <xs:attribute name="lastName" type="xs:string" use="required"/>
+        <xs:attribute name="birthDate" type="xs:date" use="required"/>
+        <xs:attribute name="occupation" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>
