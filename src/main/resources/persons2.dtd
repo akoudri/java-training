@@ -1,0 +1,7 @@
+<!ELEMENT People (Person*)>
+<!ELEMENT Person EMPTY>
+<!ATTLIST Person
+    firstName CDATA #REQUIRED
+    lastName CDATA #REQUIRED
+    birthDate CDATA #REQUIRED
+    occupation CDATA #IMPLIED>

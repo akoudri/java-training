@@ -1,0 +1,20 @@
+<People>
+    <Person>
+        <FirstName>John</FirstName>
+        <LastName>Smith</LastName>
+        <BirthDate>1985-07-05</BirthDate>
+        <Occupation>Software Engineer</Occupation>
+    </Person>
+    <Person>
+        <FirstName>Emily</FirstName>
+        <LastName>Johnson</LastName>
+        <BirthDate>1990-03-12</BirthDate>
+        <Occupation>Teacher</Occupation>
+    </Person>
+    <Person>
+        <FirstName>Donna</FirstName>
+        <LastName>Gonzalez</LastName>
+        <BirthDate>1981-09-17</BirthDate>
+        <Occupation>Veterinarian</Occupation>
+    </Person>
+</People>

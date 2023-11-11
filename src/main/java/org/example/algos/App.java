@@ -7,6 +7,7 @@ public class App
 
     public static void main( String[] args )
     {
+        int[] list = new int[] {1, 9, 4, 6, 5, 4};
         Random rand = new Random();
         int[] x = new int[100_000];
         for (int i = 0; i < x.length; i++) {
