@@ -1,15 +1,13 @@
 package org.example.structure;
 
-public class Homme {
+public class Homme extends Person {
 
-    private int age;
-    private int poids;
     static int nb = 0;
 
     Voiture voiture;
 
-    public Homme(int age, int poids, Voiture v) throws Exception {
-        if (v == null || age < 0 || poids < 0) {
+    public Homme(int age, int weight, Voiture v) throws Exception {
+        if (v == null || age < 0 || weight < 0) {
             throw new Exception("Paramètres incorrects");
         }
         this.voiture = v;
@@ -17,15 +15,15 @@ public class Homme {
     }
 
     void manger() {
-        poids ++;
+        weight ++;
     }
 
     void courir() {
-        poids --;
+        weight --;
     }
 
-    public int getPoids() {
-        return this.poids;
+    public double getPoids() {
+        return this.weight;
     }
 
     public static void incr() {

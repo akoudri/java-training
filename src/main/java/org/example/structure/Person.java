@@ -7,7 +7,7 @@ public class Person {
     private String firstname;
     private String lastname;
     private int age;
-    private double weight;
+    protected double weight;
     private double height;
     private String pseudo;
 

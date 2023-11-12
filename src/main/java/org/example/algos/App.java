@@ -1,6 +1,11 @@
 package org.example.algos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import org.example.structure.Homme;
+import org.example.structure.Person;
 
 public class App
 {
@@ -28,5 +33,11 @@ public class App
         System.out.println(duration);
         ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
         System.out.println(processing.getDimension().width);
+        List<Integer> l = new ArrayList<>();
+        l.add(25);
+        l.add(32); 
+        Person kevin = new Person("Kevin", "Costner", 56);
+        Math.sqrt(2.0);
     }
+
 }
