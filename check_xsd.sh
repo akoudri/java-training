@@ -1,3 +1,3 @@
 #! /bin/bash
 
-xmllint --schema src/main/resources/persons.xsd src/main/resources/persons3.xml
+xmllint --schema src/main/resources/music.xsd src/main/resources/music.xml

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="albumType">
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="released" type="xs:gYear" use="required"/>
+        <xs:attribute name="genre" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="bandType">
+        <xs:sequence>
+            <xs:element name="artist" type="artistType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="album" type="albumType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="created" type="xs:gYear" use="required"/>
+        <xs:attribute name="city" type="xs:string" use="required"/>
+        <xs:attribute name="country" type="xs:string" use="required"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="artistType">
+        <xs:sequence>
+            <xs:element name="album" minOccurs="0" maxOccurs="unbounded" type="albumType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+        <xs:attribute name="firstName" type="xs:string" use="required"/>
+        <xs:attribute name="lastName" type="xs:string" use="required"/>
+        <xs:attribute name="birthdate" type="xs:date" use="required"/>
+    </xs:complexType>
+
+    <xs:element name="music">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="band" minOccurs="0" maxOccurs="unbounded" type="bandType"/>
+                <xs:element name="artist" minOccurs="0" maxOccurs="unbounded" type="artistType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
