@@ -2,9 +2,12 @@
 <music>
     <band name="The DOORS" created="1967" city="Los Angeles" country="USA">
         <artist firstName="Jim" lastName="Morrison" birthdate="1943-12-08"/>
-        <artist firstName="Ray" lastName="Manzarek" birthdate="1939-02-12"/>
+        <artist firstName="Ray" lastName="Manzarek" birthdate="1939-02-12">
+            <album title="Full circle" released="1973" genre="rock"/>
+        </artist>
         <album title="The Doors" released="1967" genre="rock"/>
         <album title="L.A. Woman" released="1971" genre="rock"/>
+        <album title="Full circle" released="1973" genre="rock"/>
     </band>
     <artist name="Stromae" firstName="Paul" lastName="Van Haver" birthdate="1985-03-12">
         <album title="Racine Carré" released="2013" genre="fusion"/>

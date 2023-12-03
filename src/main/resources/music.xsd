@@ -7,6 +7,16 @@
         <xs:attribute name="genre" type="xs:string" use="required"/>
     </xs:complexType>
 
+    <xs:complexType name="artistType">
+        <xs:sequence>
+            <xs:element name="album" minOccurs="0" maxOccurs="unbounded" type="albumType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:integer"/>
+        <xs:attribute name="firstName" type="xs:string" use="required"/>
+        <xs:attribute name="lastName" type="xs:string" use="required"/>
+        <xs:attribute name="birthdate" type="xs:date" use="required"/>
+    </xs:complexType>
+
     <xs:complexType name="bandType">
         <xs:sequence>
             <xs:element name="artist" type="artistType" minOccurs="0" maxOccurs="unbounded"/>
@@ -16,17 +26,6 @@
         <xs:attribute name="created" type="xs:gYear" use="required"/>
         <xs:attribute name="city" type="xs:string" use="required"/>
         <xs:attribute name="country" type="xs:string" use="required"/>
-    </xs:complexType>
-
-
-    <xs:complexType name="artistType">
-        <xs:sequence>
-            <xs:element name="album" minOccurs="0" maxOccurs="unbounded" type="albumType"/>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="optional"/>
-        <xs:attribute name="firstName" type="xs:string" use="required"/>
-        <xs:attribute name="lastName" type="xs:string" use="required"/>
-        <xs:attribute name="birthdate" type="xs:date" use="required"/>
     </xs:complexType>
 
     <xs:element name="music">

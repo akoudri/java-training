@@ -1,23 +1,20 @@
 package org.example.structure;
 
+import java.time.LocalDate;
+
 public class Test {
 
     public static void main(String[] args) {
-        Voiture bmw = new Voiture();
-        try {
-            Homme kevin = new Homme(40, 80, bmw);
-            Homme david = new Homme(40, 80, bmw);
-            kevin.manger();
-            kevin.voiture = bmw;
-            System.out.println(kevin.getPoids());
-            System.out.println(kevin.voiture.poids);
-            Homme.incr();
-            Homme.incr();
-            System.out.println(Homme.nb);
-            System.out.println(Math.sqrt(2));
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+        Singer a = new Singer("Stromae", "Paul", "Van Haver", LocalDate.of(1985, 03, 12));
+        Artist b = new Actor(null, "John", "Wayne", LocalDate.of(1911, 03, 12));
+        a.addAlbum(new Album("Racine Carré", LocalDate.of(2013, 1, 1), "fusion"));
+        a.addAlbum(new Album("Multitude", LocalDate.of(2022, 1, 1), "fusion"));
+        Artist[] artists = {a, b};
+        for (Artist e : artists) {
+            System.out.println(e);
+            e.perform();
         }
+        a.listAlbums();
     }
 
 }
