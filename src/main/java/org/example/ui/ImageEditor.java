@@ -24,6 +24,8 @@ public class ImageEditor extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         menuBar.add(fileMenu);
+        JMenu filters = new JMenu("Filters");
+        menuBar.add(filters);
         JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
@@ -53,6 +55,13 @@ public class ImageEditor extends JFrame {
             }
         });
         fileMenu.add(openMenuItem);
+        JMenuItem grayscale = new JMenuItem("Gray Scale");
+        grayscale.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Not implemented yet", "Grayscale effect", JOptionPane.PLAIN_MESSAGE);
+        });
+        filters.add(grayscale);
+        JMenuItem sepia = new JMenuItem("Sepia");
+        filters.add(sepia);
         this.setJMenuBar(menuBar);
     }
 
