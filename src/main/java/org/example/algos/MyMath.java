@@ -77,4 +77,9 @@ public class MyMath {
         return res;
     }
 
+    public static LinkTable printPrimeNumbers(int num) {
+        //Générer une liste pour stocker les num premiers nombres premiers
+        return null;
+    }
+
 }
