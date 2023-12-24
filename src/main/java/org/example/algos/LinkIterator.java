@@ -1,10 +1,10 @@
 package org.example.algos;
 
-public class LinkIterator {
+public class LinkIterator<X> {
 
-    private Node next;
+    private Node<X> next;
 
-    public LinkIterator(Node next) {
+    public LinkIterator(Node<X> next) {
         this.next = next;
     }
 
@@ -12,8 +12,8 @@ public class LinkIterator {
         return next != null;
     }
 
-    public int next() {
-        Node n = next;
+    public X next() {
+        Node<X> n = next;
         next = next.getNext();
         return n.getValue();
     }

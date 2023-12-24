@@ -4,22 +4,22 @@ import org.example.exceptions.NullValueException;
 
 import java.util.Random;
 
-public class LinkTable {
+public class LinkTable<T> {
 
     private int length = 0;
-    public Node first = null;
-    private Node last = null;
+    public Node<T> first = null;
+    private Node<T> last = null;
 
-    public LinkIterator getIterator() {
-        return new LinkIterator(first);
+    public LinkIterator<T> getIterator() {
+        return new LinkIterator<T>(first);
     }
 
-    public void add(int a) {
+    public void add(T a) {
         if (first == null) {
-            first = new Node(a, null);
+            first = new Node<T>(a, null);
             last = first;
         } else {
-            Node n = new Node(a, null);
+            Node<T> n = new Node<T>(a, null);
             last.setNext(n);
             last = n;
         }
@@ -38,7 +38,7 @@ public class LinkTable {
             return;
         }
         int count = 1;
-        Node current = first;
+        Node<T> current = first;
         while (count++ < idx) {
             current = current.getNext();
         }
@@ -46,14 +46,14 @@ public class LinkTable {
         length --;
     }
 
-    public void removeByValue(int value) {
+    public void removeByValue(T value) {
         if (this.isEmpty()) return;
         if (first.getValue() == value) {
             first = first.getNext();
             length --;
             return;
         }
-        Node current = first;
+        Node<T> current = first;
         while (current.hasNext()) {
             if (current.getNext().getValue() == value) {
                 current.setNext(current.getNext().getNext());
@@ -64,13 +64,13 @@ public class LinkTable {
         }
     }
 
-    public void removeAllByValue(int value) {
+    public void removeAllByValue(T value) {
         if (this.isEmpty()) return;
         while (first != null && first.getValue() == value) {
             first = first.getNext();
             length --;
         }
-        Node current = first;
+        Node<T> current = first;
         while (current != null && current.hasNext()) {
             if (current.getNext().getValue() == value) {
                 current.setNext(current.getNext().getNext());
@@ -86,17 +86,17 @@ public class LinkTable {
     }
 
     public void display() {
-        LinkIterator it = this.getIterator();
+        LinkIterator<T> it = this.getIterator();
         while (it.hasNext()) {
             System.out.print(it.next() + " ");
         }
         System.out.println();
     }
 
-    public int getValue(int idx) throws NullValueException {
+    public T getValue(int idx) throws NullValueException {
         if (idx > length) throw new NullValueException();
         int counter = 0;
-        Node n = first;
+        Node<T> n = first;
         while (++counter <= idx) {
             n = n.getNext();
         }
@@ -105,25 +105,5 @@ public class LinkTable {
 
     public int getLength() {
         return length;
-    }
-
-    public static void main(String[] args) {
-        LinkTable l = new LinkTable();
-        Random r = new Random();
-        for (int i = 0; i < 5; i++) {
-            l.add(1);
-        }
-        for (int i = 0; i < 5; i++) {
-            l.add(2);
-        }
-        for (int i = 0; i < 10; i++) {
-            l.add(1);
-        }
-        for (int i = 0; i < 5; i++) {
-            l.add(2);
-        }
-        l.display();
-        l.removeAllByValue(1);
-        l.display();
     }
 }

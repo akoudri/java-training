@@ -16,4 +16,6 @@ public class Actor extends Artist {
         System.out.println(this.getName());
     }
 
+
+
 }
