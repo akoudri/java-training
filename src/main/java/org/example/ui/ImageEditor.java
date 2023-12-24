@@ -1,5 +1,7 @@
 package org.example.ui;
 
+import org.example.algos.ImageProcessing;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,9 +12,12 @@ import java.io.IOException;
 public class ImageEditor extends JFrame {
 
     private BufferedImage image;
+    private ImageProcessing processing;
+    private JPanel panel;
 
     //Constructor, opens the window in full screen
     public ImageEditor() {
+        this.processing = new ImageProcessing();
         this.setTitle("Image Editor");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +39,7 @@ public class ImageEditor extends JFrame {
             fileChooser.showOpenDialog(this);
             try {
                 image = ImageIO.read(fileChooser.getSelectedFile());
-                JPanel panel = new JPanel() {
+                panel = new JPanel() {
                     @Override
                     protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
@@ -57,10 +62,19 @@ public class ImageEditor extends JFrame {
         fileMenu.add(openMenuItem);
         JMenuItem grayscale = new JMenuItem("Gray Scale");
         grayscale.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Not implemented yet", "Grayscale effect", JOptionPane.PLAIN_MESSAGE);
+            processing.loadImageFromBuffer(image);
+            processing.grayScale();
+            image = processing.applyTransformation();
+            panel.repaint();
         });
         filters.add(grayscale);
         JMenuItem sepia = new JMenuItem("Sepia");
+        sepia.addActionListener(e -> {
+            processing.loadImageFromBuffer(image);
+            processing.sepia();
+            image = processing.applyTransformation();
+            panel.repaint();
+        });
         filters.add(sepia);
         this.setJMenuBar(menuBar);
     }

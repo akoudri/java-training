@@ -31,8 +31,6 @@ public class App
         duration = System.currentTimeMillis() - start;
         ty.display();
         System.out.println(duration);
-        ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
-        System.out.println(processing.getDimension().width);
         List<Integer> l = new ArrayList<>();
         l.add(25);
         l.add(32); 

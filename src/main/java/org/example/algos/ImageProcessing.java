@@ -13,18 +13,7 @@ public class ImageProcessing {
     private int width, height;
     private int originalWidth, originalHeight;
 
-    public ImageProcessing() {
-        loadImageFromUrl("https://bellard.org/bpg/lena30.jpg");
-    }
-
-    public ImageProcessing(String file, boolean local) {
-        if (local)
-            loadImageFromFile(file);
-        else
-            loadImageFromUrl(file);
-    }
-
-    private void loadImageFromFile(String fileName) {
+    public void loadImageFromFile(String fileName) {
         try {
             // Adjust this if your resources folder is located differently
             File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
@@ -52,8 +41,28 @@ public class ImageProcessing {
         }
     }
 
+    public void loadImageFromBuffer(BufferedImage buff) {
+        width = buff.getWidth();
+        height = buff.getHeight();
+        originalWidth = width;
+        originalHeight = height;
+        image = new int[height][width][3];
+        int px, red, green, blue;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                px = buff.getRGB(j, i);
+                red = (px >> 16) & 0xFF;
+                green = (px >> 8) & 0xFF;
+                blue = px & 0xFF;
+                image[i][j][0] = red;
+                image[i][j][1] = green;
+                image[i][j][2] = blue;
+            }
+        }
+        tImage = image.clone();
+    }
 
-    private void loadImageFromUrl(String url) {
+    public void loadImageFromUrl(String url) {
         try {
             URL photoUrl = new URL(url);
             BufferedInputStream in = new BufferedInputStream(photoUrl.openStream());
@@ -83,6 +92,17 @@ public class ImageProcessing {
 
     public void saveImage(String name) {
         File f = new File("src/main/resources/" + name + ".jpg");
+        BufferedImage buff = applyTransformation();
+        width = originalWidth;
+        height = originalHeight;
+        try {
+            ImageIO.write(buff, "jpg", f);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public BufferedImage applyTransformation() {
         BufferedImage buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         int px, red, green, blue;
         for (int i = 0; i < height; i++) {
@@ -94,13 +114,7 @@ public class ImageProcessing {
                 buff.setRGB(j, i, px);
             }
         }
-        width = originalWidth;
-        height = originalHeight;
-        try {
-            ImageIO.write(buff, "jpg", f);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        return buff;
     }
 
     public Dimension getDimension() {
@@ -505,57 +519,6 @@ public class ImageProcessing {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        //ImageProcessing processing = new ImageProcessing("https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg", false);
-        ImageProcessing processing = new ImageProcessing();
-        processing.frenchEffect();
-        processing.saveImage("lenna_french");
-//        processing.sharpen();
-//        processing.saveImage("lenna_sharpen");
-//        processing.flipVertically();
-//        processing.saveImage("cat_verticalflip");
-//        processing.keepLayer(1);
-//        processing.saveImage("cat_green");
-//        processing.horizontalShift(0.5);
-//        processing.saveImage("lenna_shift");
-//        processing.sharpen();
-//        processing.saveImage("lenna_sharpen");
-//        processing.flipHorizontally();
-//        processing.saveImage("lenna_horizontalflip");
-//        processing.zoomCenter();
-//        processing.saveImage("lenna_zoomcenter");
-//        processing.grayScale();
-//        processing.saveImage("cat_grayscale");
-//        processing.dropLayer(1);
-//        processing.saveImage("cat_green");
-//        processing.sepia();
-//        processing.saveImage("lenna_sepia");
-//        processing.invert();
-//        processing.saveImage("lenna_negative");
-//        processing.swap(1);
-//        processing.saveImage("lenna_swap1");
-//        processing.swap(2);
-//        processing.saveImage("lenna_swap2");
-        processing.adjustBrightness(100);
-        processing.saveImage("lenna_brightness");
-//        processing.adjustContrast(2);
-//        processing.saveImage("lenna_contrast");
-//        processing.oldStyle(20, 2, 0);
-//        processing.saveImage("lenna_oldstyle");
-//        processing.rightRotate();
-//        processing.saveImage("lenna_rightrotate");
-//        processing.leftRotate();
-//        processing.saveImage("lenna_leftrotate");
-//        processing.scale(2.0);
-//        processing.saveImage("lenna_scale");
-//        processing.rotate(45);
-//        processing.saveImage("lenna_rotateangle");
-//        processing.stretchVertically(2.0);
-//        processing.saveImage("lenna_verticalstretch");
-//        processing.stretchHorizontally(3.0);
-//        processing.saveImage("cat");
     }
 
 }
