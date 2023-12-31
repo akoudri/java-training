@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Test1 {
 
@@ -34,12 +35,28 @@ public class Test1 {
 //        System.out.println(compo1.apply(2));
 //        System.out.println(compo2.apply(2));
 //        DynamicTable<Integer> l = new DynamicTable<>();
-        List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
-                .stream()
+        List<Long> l = new ArrayList<>();
+        for (long i = 0; i < 1_000_000; i++) {
+            l.add(i);
+        }
+        long start = System.currentTimeMillis();
+        List<Long> res = l.stream()
                 .map(MyMath::carre)
                 .map(x -> x + 5)
                 .filter( x -> x % 2 == 0)
-                .forEach(System.out::println);
+                .toList();
+        long duration = System.currentTimeMillis() - start;
+        System.out.println("Duration : " + duration);
+        res = new ArrayList<>(l);
+        start = System.currentTimeMillis();
+        for (Long i : l) {
+            long c = MyMath.carre(i);
+            long s = c + 5;
+            if (s % 2 == 0) {
+                res.add(s);
+            }
+        }
+        duration = System.currentTimeMillis() - start;
+        System.out.println("Duration : " + duration);
     }
-
 }

@@ -2,7 +2,7 @@ package org.example.algos;
 
 public class MyMath {
 
-    public static int compo(int x) {
+    public static long compo(int x) {
         int s = somme(x);
         return carre(somme(x));
     }
@@ -11,7 +11,7 @@ public class MyMath {
         return x + 5;
     }
 
-    public static int carre(int x) {
+    public static long carre(long x) {
         return x * x;
     }
 
