@@ -2,6 +2,15 @@ package org.example.algos;
 
 public class MyMath {
 
+    public static int compo(int x) {
+        int s = somme(x);
+        return carre(somme(x));
+    }
+
+    public static int somme(int x) {
+        return x + 5;
+    }
+
     public static int carre(int x) {
         return x * x;
     }

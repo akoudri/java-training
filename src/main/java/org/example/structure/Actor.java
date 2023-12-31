@@ -1,5 +1,7 @@
 package org.example.structure;
 
+import org.example.algos.Table;
+
 import java.time.LocalDate;
 
 public class Actor extends Artist {

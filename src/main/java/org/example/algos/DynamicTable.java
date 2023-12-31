@@ -2,17 +2,19 @@ package org.example.algos;
 
 import org.example.exceptions.NullValueException;
 
-import java.util.Random;
-
-public class DynamicTable {
+public class DynamicTable<T> implements Table<T>{
 
     private int length = 0;
     private int capacity = 50;
-    private Integer[] array = new Integer[capacity];
+    private T[] array = (T[]) new Object[capacity];
 
-    public void add(int a) {
+    /**
+     * @param a : the number to be added
+     */
+    @Override
+    public void add(T a) {
         if (length >= capacity) {
-            Integer[] narray = new Integer[capacity * 2];
+            T[] narray = (T[]) new Object[capacity * 2];
             for (int i = 0; i < capacity; i++) {
                 narray[i] = array[i];
             }
@@ -23,37 +25,39 @@ public class DynamicTable {
         length ++;
     }
 
+    /**
+     * @param idx
+     * @return the value at index idx
+     */
+    @Override
+    public T get(int idx) {
+        if (idx < length) return array[idx];
+        return null;
+    }
+
+    @Override
     public void remove(int idx) {
         array[idx] = null;
         length --;
     }
 
-    public void setValue(int idx, int value) {
+    public void setValue(int idx, T value) {
         array[idx] = value;
     }
 
-    public int getValue(int idx) throws NullValueException {
+    public T getValue(int idx) throws NullValueException {
         if (array[idx] == null) throw new NullValueException();
         return array[idx];
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
-    public static void main(String[] args) {
-        DynamicTable t = new DynamicTable();
-        Random r = new Random();
-        for (int i = 0; i < 1000; i++) {
-            t.add(r.nextInt(100));
-        }
-        try {
-            for (int i = 0; i < t.getLength(); i++) {
-                System.out.print(t.getValue(i) + " ");
-            }
-            System.out.println();
-        } catch (NullValueException e) {
-            System.out.println(e.getMessage());
+    public void of(T... elements) {
+        for (T e : elements) {
+            System.out.println(e);
         }
     }
 

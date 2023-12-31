@@ -1,10 +1,6 @@
 package org.example.algos;
 
-import org.example.exceptions.NullValueException;
-
-import java.util.Random;
-
-public class LinkTable<T> {
+public class LinkTable<T> implements Table<T> {
 
     private int length = 0;
     public Node<T> first = null;
@@ -14,6 +10,7 @@ public class LinkTable<T> {
         return new LinkIterator<T>(first);
     }
 
+    @Override
     public void add(T a) {
         if (first == null) {
             first = new Node<T>(a, null);
@@ -24,6 +21,11 @@ public class LinkTable<T> {
             last = n;
         }
         length ++;
+    }
+
+    @Override
+    public T get(int idx) {
+        return getValue(idx);
     }
 
     public boolean isEmpty() {
@@ -93,8 +95,8 @@ public class LinkTable<T> {
         System.out.println();
     }
 
-    public T getValue(int idx) throws NullValueException {
-        if (idx > length) throw new NullValueException();
+    public T getValue(int idx) {
+        if (idx > length) return null;
         int counter = 0;
         Node<T> n = first;
         while (++counter <= idx) {
@@ -103,7 +105,13 @@ public class LinkTable<T> {
         return n.getValue();
     }
 
+    @Override
     public int getLength() {
         return length;
+    }
+
+    @Override
+    public void remove(int idx) {
+        this.removeByIndex(idx);
     }
 }
