@@ -25,10 +25,6 @@ public class MyMath {
         else return -1 * x;
     }
 
-    public static double racine(double x) {
-        return racine(x, 1e-12);
-    }
-
     public static double racine(double x, double error) {
         double min = 0.0;
         double max = x;
