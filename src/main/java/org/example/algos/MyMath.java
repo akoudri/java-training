@@ -1,18 +1,24 @@
 package org.example.algos;
 
+import java.util.function.Function;
+
 public class MyMath {
 
-    public static long compo(int x) {
-        int s = somme(x);
+    public static long compo(long x) {
+        long s = somme(x);
         return carre(somme(x));
     }
 
-    public static int somme(int x) {
+    public static long somme(long x) {
         return x + 5;
     }
 
     public static long carre(long x) {
         return x * x;
+    }
+
+    public static long composition(long x) {
+        return carre(somme(x));
     }
 
     public static double abs(double x) {
@@ -86,9 +92,34 @@ public class MyMath {
         return res;
     }
 
+    public static int fact2(int x) {
+        if (x <= 1) {
+            return x;
+        }
+        return x * fact2(x-1);
+    }
+
     public static LinkTable printPrimeNumbers(int num) {
         //Générer une liste pour stocker les num premiers nombres premiers
         return null;
+    }
+
+    public static int n() {
+        return 5;
+    }
+
+    public static int m() {
+        return 3 * n();
+    }
+
+    public static int l() {
+        return 2 * m();
+    }
+    public static void main(String[] args) {
+        Function<Long, Long> somme = MyMath::somme;
+        Function<Long, Long> carre = MyMath::carre;
+        Function<Long, Long> composition = somme.andThen(carre);
+        System.out.println(composition.apply(5L));
     }
 
 }
