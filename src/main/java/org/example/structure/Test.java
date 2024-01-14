@@ -16,16 +16,29 @@ public class Test {
             e.perform();
         }
         a.listAlbums();*/
-        Stack<Integer> stack = new Stack<>();
-        Random r = new Random();
-        for (int i = 0; i < 5; i++) {
-            stack.push(r.nextInt(20));
-        }
-        stack.display();
-        System.out.println("-----------");
-        System.out.println(stack.pop());
-        System.out.println("-----------");
-        stack.display();
+//        Stack<Integer> stack = new Stack<>();
+//        Random r = new Random();
+//        for (int i = 0; i < 5; i++) {
+//            stack.push(r.nextInt(20));
+//        }
+//        stack.display();
+//        System.out.println("-----------");
+//        System.out.println(stack.pop());
+//        System.out.println("-----------");
+//        stack.display();
+        Enterprise xyz = new Enterprise("XYZ");
+        Department dir = new Department("Direction");
+        Department rd = new Department("R&D");
+        Department qualite = new Department("Qualité");
+        Collaborator ali = new Collaborator("Ali", "Koudri");
+        xyz.setCeo(ali);
+        Collaborator david = new Collaborator("David", "Gillard");
+        Collaborator amine = new Collaborator("Amine", "Koudri");
+        rd.addCollaborator(david);
+        rd.addCollaborator(amine);
+        rd.setManager(david);
+        rd.setManager(amine);
+        qualite.setManager(amine);
     }
 
 }
