@@ -1,16 +1,13 @@
 package org.example.structure;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.Objects;
+
+//@Data
+@Data
+@AllArgsConstructor
 public class Collaborator {
-
-    @Getter
-    @Setter
+    private int id;
     private String firstname, lastname;
-
-    public Collaborator(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
 }

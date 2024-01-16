@@ -27,18 +27,22 @@ public class Test {
 //        System.out.println("-----------");
 //        stack.display();
         Enterprise xyz = new Enterprise("XYZ");
-        Department dir = new Department("Direction");
-        Department rd = new Department("R&D");
-        Department qualite = new Department("Qualité");
-        Collaborator ali = new Collaborator("Ali", "Koudri");
-        xyz.setCeo(ali);
-        Collaborator david = new Collaborator("David", "Gillard");
-        Collaborator amine = new Collaborator("Amine", "Koudri");
-        rd.addCollaborator(david);
-        rd.addCollaborator(amine);
-        rd.setManager(david);
-        rd.setManager(amine);
-        qualite.setManager(amine);
+//        Department dir = new Department("Direction");
+//        Department rd = new Department("R&D");
+//        Department qualite = new Department("Qualité");
+//        Collaborator ali = new Collaborator("Ali", "Koudri");
+//        xyz.setCeo(ali);
+//        Collaborator david = new Collaborator("David", "Gillard");
+//        Collaborator amine = new Collaborator("Amine", "Koudri");
+//        amine.setFirstname("Toto");
+//        rd.addCollaborator(david);
+//        rd.addCollaborator(amine);
+//        rd.setManager(david);
+//        rd.setManager(amine);
+//        qualite.setManager(amine);
+        xyz.addCollaborator(new Collaborator(1, "Ali", "Koudri"));
+        xyz.addCollaborator(new Collaborator(1, "David", "Gillard"));
+        xyz.viewCollaborators();
     }
 
 }
