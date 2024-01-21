@@ -33,26 +33,36 @@ public class Queue<E> implements QueueIface<E>{
 
     @Override
     public E remove() throws FifoEmptyException {
-        return null;
+        if (elements.isEmpty()) throw new FifoEmptyException();
+        return elements.remove(0);
     }
 
     @Override
     public E examine() throws FifoEmptyException {
-        return null;
+        if (elements.isEmpty()) throw new FifoEmptyException();
+        return elements.get(0);
     }
 
     @Override
     public boolean offer(E e) {
-        return false;
+        if (capacity == -1) {
+            elements.add(e);
+        } else {
+            if (elements.size() == capacity) return false;
+            elements.add(e);
+        }
+        return true;
     }
 
     @Override
     public E peek() {
-        return null;
+        if (elements.isEmpty()) return null;
+        return elements.get(0);
     }
 
     @Override
     public E poll() {
-        return null;
+        if (elements.isEmpty()) return null;
+        return elements.remove(0);
     }
 }

@@ -1,7 +1,5 @@
 package org.example.structure;
 
-import org.example.algos.Table;
-
 import java.time.LocalDate;
 
 public class Actor extends Artist {
@@ -18,6 +16,8 @@ public class Actor extends Artist {
         System.out.println(this.getName());
     }
 
-
+    public void display(String message) {
+        System.out.println(this.getName() + " " + message);
+    }
 
 }

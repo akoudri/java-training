@@ -34,6 +34,7 @@ public class Stack<E> implements StackIface<E> {
         elements.add(e);
     }
 
+
     public void display() {
         elements.forEach(System.out::println);
     }

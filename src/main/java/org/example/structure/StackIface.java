@@ -10,4 +10,8 @@ public interface StackIface<E> {
 
     void push(E e);
 
+    default void blob() {
+        System.out.println("Doing blob");
+    }
+
 }

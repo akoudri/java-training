@@ -43,6 +43,9 @@ public class Test {
         xyz.addCollaborator(new Collaborator(1, "Ali", "Koudri"));
         xyz.addCollaborator(new Collaborator(1, "David", "Gillard"));
         xyz.viewCollaborators();
+        Album a = new Album("Racine Carré", LocalDate.of(2013, 1, 1), "fusion");
+        a.setTitle("XXX");
+        Album b = new Album();
     }
 
 }

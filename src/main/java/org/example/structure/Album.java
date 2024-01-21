@@ -1,40 +1,21 @@
 package org.example.structure;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Album {
 
-    private String title;
-    private LocalDate released;
-    private String genre;
+    String title;
+    LocalDate released;
+    String genre;
 
-    public Album(String title, LocalDate released, String genre) {
-        this.title = title;
-        this.released = released;
-        this.genre = genre;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDate getReleased() {
-        return released;
-    }
-
-    public void setReleased(LocalDate released) {
-        this.released = released;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
 }

@@ -16,10 +16,11 @@ import java.util.stream.Collectors;
 
 public class Test1 {
 
-    @Author(firstName = "Albert", lastName = "Camus")
+    //@Author(firstName = "Albert", lastName = "Camus")
     private Book b = new Book("L'étranger");
 
     public static void main(String[] args) {
+
 //        Actor a = new Actor("bg", "Brad", "Pitt", LocalDate.of(1964, 2, 28));
 //        org.example.algos.Actor b = new org.example.algos.Actor();
 //        Day l = Day.MONDAY;
