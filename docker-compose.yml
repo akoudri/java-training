@@ -1,0 +1,32 @@
+version: "3"
+
+volumes:
+  trainingdata:
+  pgadmindata:
+
+services:
+  training-postgres:
+    image: postgres:alpine
+    container_name: training-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=training
+      - POSTGRES_PASSWORD=training
+      - POSTGRES_DB=training
+    ports:
+      - 6543:5432
+    volumes:
+      - trainingdata:/var/lib/postgresql/data:Z
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+  training-admin:
+    image: dpage/pgadmin4:latest
+    container_name: pgAdmin
+    restart: unless-stopped
+    ports:
+      - 80:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ali.koudri@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=training
+    volumes:
+      - pgadmindata:/var/lib/pgadmin4/storage
+
